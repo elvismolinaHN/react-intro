@@ -1,9 +1,14 @@
 import logo from './platzi.webp';
 import './App.css';
 
-function App() {
+function App() { // Es un componente de react.
   return (
-    <div className="App">
+    <div className="App"> 
+
+      <TodoItem />
+      <TodoItem />
+      <TodoItem />
+
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
@@ -15,10 +20,20 @@ function App() {
           target="_blank"
           rel="noopener noreferrer"
         >
-          Learn React
+          Aprendamos React
         </a>
       </header>
     </div>
+  );
+}
+// Los componentes reciben propiedades.
+function TodoItem() {
+  return (
+    <li>
+      <span>V</span>
+      <p>Llorar con la Llorona</p>
+      <span>X</span>
+    </li>
   );
 }
 
