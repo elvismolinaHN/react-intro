@@ -1,7 +1,7 @@
-function TodoList(props) { // Renderiza los componentes de TodoItem.
+function TodoList({ children }) { // Renderiza los componentes de TodoItem.
     return (
         <ul> 
-            {props.children} 
+            {children} 
         </ul>
     );
 }
