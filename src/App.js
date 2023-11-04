@@ -10,14 +10,32 @@ const defaultTodos = [
   { text: 'tomar el curso de intro a react', completed: false},
   { text: 'llorar con la llorona', completed: false},
   { text: 'pintar la casa', completed: false},
+  { text: 'usando estados derivados', completed: true},
 ];
 
 function App() { // Es un componente de react.
+  const [todos, setTodos] = React.useState(defaultTodos);
+  const [searchValue, setSearchValue] = React.useState(''); // Empieza con un string vacio 
+  // para que los usuarios no encuentren nada cuando escriban en el input.
+
+  const completedTodos = todos.filter( // Filtramos aquellos objetos donde el completed sea true.
+    todo => !!todo.completed // Hace que el valor que busque sea verdadero.
+  ).length; 
+  const totalTodos = todos.length; // Es el tamaño total del estado "todos".
+
+  console.log('Los usuarios buscan todos de ' + searchValue);
+
   return ( // <React.Fragment> Encapsula todos los componentes que lo contienen.
     <React.Fragment> 
 
-      <TodoCounter completed={5} total={8}/>
-      <TodoSearch />
+      <TodoCounter 
+        completed={completedTodos} 
+        total={totalTodos}
+      />
+      <TodoSearch 
+        searchValue = {searchValue}
+        setSearchValue = {setSearchValue}
+      />
 
       <TodoList>
         {defaultTodos.map(todo => (
