@@ -23,6 +23,14 @@ function App() { // Es un componente de react.
   ).length; 
   const totalTodos = todos.length; // Es el tamaño total del estado "todos".
 
+  const searchedTodos = todos.filter(
+    (todo) => {
+      const todoText = todo.text.toLowerCase();
+      const searchText = searchValue.toLocaleLowerCase();
+      return todoText.includes(searchText); // Filtra aquellos elementos que escribe el usuario en el input.
+    }
+  );
+
   console.log('Los usuarios buscan todos de ' + searchValue);
 
   return ( // <React.Fragment> Encapsula todos los componentes que lo contienen.
@@ -38,7 +46,7 @@ function App() { // Es un componente de react.
       />
 
       <TodoList>
-        {defaultTodos.map(todo => (
+        {searchedTodos.map(todo => (
           <TodoItem 
             key={todo.text} 
             text={todo.text}
