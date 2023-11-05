@@ -23,15 +23,31 @@ function App() { // Es un componente de react.
   ).length; 
   const totalTodos = todos.length; // Es el tamaño total del estado "todos".
 
-  const searchedTodos = todos.filter(
+  const searchedTodos = todos.filter( // Filtra aquellos elementos que escribe el usuario en el input.
     (todo) => {
       const todoText = todo.text.toLowerCase();
       const searchText = searchValue.toLocaleLowerCase();
-      return todoText.includes(searchText); // Filtra aquellos elementos que escribe el usuario en el input.
+      return todoText.includes(searchText); 
     }
   );
 
-  console.log('Los usuarios buscan todos de ' + searchValue);
+  const completeTodo = (text) => { // Encuentra aquella tarea que se completo en el todo
+    const newTodos = [...todos]; // Los ... lo que hace es crear una copia del estado del array del todo.
+    const todoIndex = newTodos.findIndex(
+      (todo) => todo.text == text
+    );
+    newTodos[todoIndex].completed = true;
+    setTodos(newTodos)
+  }
+
+  const deleteTodo = (text) => { // Encuentra aquella tarea que se completo en el todo
+    const newTodos = [...todos]; // Los ... lo que hace es crear una copia del estado del array del todo.
+    const todoIndex = newTodos.findIndex(
+      (todo) => todo.text == text
+    );
+    newTodos.splice(todoIndex, 1);
+    setTodos(newTodos)
+  }
 
   return ( // <React.Fragment> Encapsula todos los componentes que lo contienen.
     <React.Fragment> 
@@ -48,9 +64,11 @@ function App() { // Es un componente de react.
       <TodoList>
         {searchedTodos.map(todo => (
           <TodoItem 
-            key={todo.text} 
+            key={todo.text} // Es un identificador unico que nos pide react.
             text={todo.text}
             completed={todo.completed}
+            onComplete={() => completeTodo(todo.text)} // No se ejecuta hasta que sucede el 
+            onDelete={() => deleteTodo(todo.text)}
           />
         ))}
       </TodoList>
