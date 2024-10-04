@@ -22,11 +22,27 @@ function App() {
 
   const searchedTodos = todos.filter((todo) => {
     const todoText = todo.text.toLowerCase();
-    const searchText = searchValue.toLowerCase(); // .toLowerCase cuando escribe en minuscula, detecta mayusculas y minusculas 
-    return todoText.includes(searchText); // .includes es una propiedad de los strings para detectar lo que se esta digitando
+    const searchText = searchValue.toLowerCase(); 
+    return todoText.includes(searchText); 
   });
 
-  console.log('Los usuarios buscan todos de: ' + searchValue);
+  const completeTodo = (text) => {
+    const newTodos = [...todos]; // ...todos Es una copia del estado del array de todos
+    const todoIndex = newTodos.findIndex( // .findIndex Encuentra el indice dentro del arreglo
+      (todo) => todo.text == text 
+    );
+    newTodos[todoIndex].completed = true 
+    setTodos(newTodos);
+  };
+
+  const deleteTodo = (text) => {
+    const newTodos = [...todos]; 
+    const todoIndex = newTodos.findIndex( 
+      (todo) => todo.text == text 
+    );
+    newTodos.splice(todoIndex, 1);
+    setTodos(newTodos);
+  };
 
   return (
     <> 
@@ -45,6 +61,8 @@ function App() {
             key={todo.text} 
             text={todo.text}
             completed={todo.completed}
+            onComplete={() => completeTodo(todo.text)} // Envuelve una funcion dentro de otra funcion, para que se ejecute solo cuando sucede el evento
+            onDelete={() => deleteTodo(todo.text)}
           />
         ))}
       </TodoList>
