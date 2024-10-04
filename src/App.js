@@ -14,11 +14,17 @@ const defaultTodos = [
 ];
 
 function App() {
-  const [todos, setTodos] = React.useState(defaultTodos); // React.useState(defaultTodos) es el estado inicial
+  const [todos, setTodos] = React.useState(defaultTodos); 
   const [searchValue, setSearchValue] = React.useState('');
 
-  const completedTodos = todos.filter(todo => !!todo.completed).length; // Filtra los elementos que ya fueron completados
-  const totalTodos = todos.length; // Es un estado derivado porque toma funcionalidades de otro estado
+  const completedTodos = todos.filter(todo => !!todo.completed).length; 
+  const totalTodos = todos.length; 
+
+  const searchedTodos = todos.filter((todo) => {
+    const todoText = todo.text.toLowerCase();
+    const searchText = searchValue.toLowerCase(); // .toLowerCase cuando escribe en minuscula, detecta mayusculas y minusculas 
+    return todoText.includes(searchText); // .includes es una propiedad de los strings para detectar lo que se esta digitando
+  });
 
   console.log('Los usuarios buscan todos de: ' + searchValue);
 
@@ -34,7 +40,7 @@ function App() {
       />
 
       <TodoList>
-        {defaultTodos.map(todo => (
+        {searchedTodos.map(todo => (
           <TodoItem 
             key={todo.text} 
             text={todo.text}
