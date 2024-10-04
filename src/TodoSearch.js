@@ -1,14 +1,18 @@
-import './TodoSearch.css'
+import React from 'react';
+import './TodoSearch.css';
 
 function TodoSearch() {
+    const [searchValue, setSearchValue] = React.useState('');
+
+    console.log('Los usuarios buscan todos de: ' + searchValue);
+
     return (
         <input 
             placeholder="Cortar cebolla"
             className="TodoSearch"
+            value={searchValue} // searchValue hace que el valor inicial sea null
             onChange={(event) => {
-                console.log(event);
-                console.log(event.target); // Trae el html que se esta llamando
-                console.log(event.target.value); // Detecta cada silaba que esta escribiendo el usuario
+                setSearchValue(event.target.value); // Actualiza el estado a lo que digite el usuario
             }}
         ></input>
     );
